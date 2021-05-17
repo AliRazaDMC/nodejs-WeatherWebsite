@@ -5,15 +5,20 @@ const geocoding = require('./utils/geocode');
 const forecasting = require('./utils/forecast');
 
 const app = express();
+const port = process.env.PORT || 3000;
+
+// Define Path for Express config
 const publicDirectoryPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 
+// Setup handlers engine and views location
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
 hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
+// Static directory
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather App',
@@ -70,6 +75,6 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000. Follow the link http://localhost:3000');
+app.listen(port, () => {
+    console.log('Server is up on port 3000. Follow the link http://localhost:'+port);
 });
